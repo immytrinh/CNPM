@@ -1227,3 +1227,8 @@ i.home-product-item__like-icon-fill {
     font-size: 1.2rem;
     color: #737373;
 }
+
+.short-header {
+    height: 60px;
+    background-color: var(--primary-color);
+}
