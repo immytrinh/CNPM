@@ -2,6 +2,7 @@ import express from "express";
 import bodyParser from "body-parser"; // Hỗ trợ lấy các tham số mà phía client sử dụng: query, params
 import viewEngine from "./config/viewEngine"
 import initWebRoutes from "./route/web"
+import connectDB from "./config/connectDB"
 require('dotenv').config()
 
 const app = express();
@@ -15,6 +16,7 @@ app.use(bodyParser.urlencoded({ extended: true }))
 viewEngine(app);
 initWebRoutes(app);
 
+connectDB();
 
 app.listen(port, () => {
     console.log(`Server is running at port ${port}`)
