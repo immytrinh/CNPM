@@ -104,7 +104,7 @@ html {
     animation: growth linear 0.1s;
 } */
 
-.modal-register {
+.modal {
     position: fixed;
     top:0;
     right: 0;
@@ -113,29 +113,8 @@ html {
     background: rgba(0, 0, 0, 0.3);
     align-items: center;
     justify-content: center;
-    display: none;
-    z-index: 1;
-}
-
-.modal-register.open {
     display: flex;
-}
-
-.modal-login {
-    position: fixed;
-    top:0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    background: rgba(0, 0, 0, 0.3);
-    align-items: center;
-    justify-content: center;
-    display: none;
     z-index: 1;
-}
-
-.modal-login.open {
-    display: flex;
 }
 
 /* Button Sytle */
