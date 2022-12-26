@@ -1,15 +1,20 @@
 import db from '../models/index'
 
-let getHomepage = async (req, res) => {
-    try {
-        let data = await db.User.findAll(); // findAll(): tìm tất cả dữ liệu trong bảng user
-        return res.render("homepage.ejs", { data: JSON.stringify(data) })
-    } catch (e) {
-        console.log(e)
-    }
+// let getIndexPage = async (req, res) => {
+//     return res.render("index.ejs")
+// }
+
+// let getLoginPage = async (req, res) => {
+//     return res.render("logIn.ejs")
+// }
+
+// let getSignupPage = async (req, res) => {
+//     return res.render("signUp.ejs")
+// }
+
+let getHomePage = async (req, res) => {
+    return res.render("home.ejs")
 }
-
-
 module.exports = {
-    getHomepage
+    getHomePage
 }

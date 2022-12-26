@@ -14,9 +14,12 @@ app.use(bodyParser.urlencoded({ extended: true }))
 
 // config app
 viewEngine(app);
-initWebRoutes(app);
+// initWebRoutes(app);
 
 connectDB();
+
+app.use("/", require('./route/indexRouter'))
+app.use("/user", require("./route/userRouter"))
 
 app.listen(port, () => {
     console.log(`Server is running at port ${port}`)
