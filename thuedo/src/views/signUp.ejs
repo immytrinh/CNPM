@@ -6,18 +6,31 @@
                 <a class="auth-form__switch-btn" href="/user/login">Đăng nhập</a>
             </div>
 
-            <div class="auth-form__form">
-                <div class="auth-form__group">
-                    <input type="email" class="auth-form__input" id="username" placeholder="Email">
+            <form class="auth-form__form" action="/user/signup" id="signup_form" method="POST">
+                <div alert type>
+                    <% if(typeof message !="undefined" && message) { %>
+                        <strong>
+                            <%= message %>
+                        </strong>
+                        <% } %>
+                </div>
+                <div class=" auth-form__group">
+                    <input type="text" class="auth-form__input" id="email" name="email"
+                        placeholder="Email là tên người dùng">
                 </div>
                 <div class="auth-form__group">
-                    <input type="password" class="auth-form__input" id="password" placeholder="Mật khẩu">
+                    <input type="password" class="auth-form__input" id="password" name="password"
+                        placeholder="Mật khẩu">
                 </div>
                 <div class="auth-form__group">
-                    <input type="password" class="auth-form__input" id="confirmPassword"
+                    <input type="password" class="auth-form__input" id="confirmedPassword" name="confirmedPassword"
                         placeholder="Nhập lại mật khẩu">
                 </div>
-            </div>
+
+                <div class="auth-form__controls">
+                    <button class="btn btn--primary">ĐĂNG KÝ</button>
+                </div>
+            </form>
 
             <div class="auth-form__aside">
                 <p class="auth-form__policy-text">
@@ -29,7 +42,6 @@
 
             <div class="auth-form__controls">
                 <a class="btn auth-form__controls-back" href="/">TRỞ LẠI</a>
-                <button class="btn btn--primary">ĐĂNG KÝ</button>
             </div>
         </div>
 

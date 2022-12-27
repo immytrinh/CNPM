@@ -18,8 +18,8 @@ viewEngine(app);
 
 connectDB();
 
-app.use("/", require('./route/indexRouter'))
 app.use("/user", require("./route/userRouter"))
+app.use("/", require('./route/indexRouter'))
 
 app.listen(port, () => {
     console.log(`Server is running at port ${port}`)

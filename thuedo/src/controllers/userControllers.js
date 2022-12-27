@@ -1,2 +1,20 @@
 
-import db from '../models/user'
+import db from '../models'
+let controller = {}
+let User = db.User
+let bcrypt = require("bcryptjs")
+
+controller.getUserByEmail = (email) => {
+    console.log(email)
+    return User.findOne({
+        where: { email: email }
+    })
+}
+
+controller.createUser = (user) => {
+    let salt = bcrypt.genSaltSync(10);
+    user.password = bcrypt.hashSync(user.password, salt) // mã hóa mật khẩu
+    return User.create(user)
+}
+
+module.exports = controller;
