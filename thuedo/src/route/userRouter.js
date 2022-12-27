@@ -4,6 +4,7 @@ let router = express.Router();
 
 
 router.get("/login", (req, res) => {
+    req.session.returnURL = req.query.returnURL;
     res.render('logIn.ejs')
 })
 
@@ -20,7 +21,11 @@ router.post("/login", (req, res, next) => {
                     req.session.cookie.maxAge = keepLoggedIn ? 30 * 24 * 60 * 60 * 1000 : null
                     // bật trạng thái lên
                     req.session.user = user;
-                    res.redirect("/")
+                    if (req.session.returnURL) {
+                        res.redirect(req.session.returnURL)
+                    } else {
+                        res.redirect("/");
+                    }
                 } else {
                     // không trùng mật khẩu
                     res.render("logIn.ejs", {
@@ -91,4 +96,100 @@ router.get("/logout", (req, res, next) => {
     })
 })
 
+
+router.get("/forgot", (req, res, next) => {
+    res.render('forgot.ejs', {
+        message: "Nhập email của bạn, chúng tôi sẽ gửi cho bạn hướng dẫn."
+    })
+})
+
+router.post('/forgot', (req, res, next) => {
+    let email = req.body.email
+
+    // Kiểm tra email có tồn tại không?
+    userControllers.getUserByEmail(email)
+        .then(user => {
+            if (user) {
+                // Nếu có thì tạo link
+                let token = userControllers.createJWT(email);
+                let host = req.header('host');
+                let url = `${req.protocol}://${host}/user/reset?u=${email}&t=${token}`;
+
+                // Gửi email
+                userControllers.sendResetPassword(user, host, url)
+                    .then((result) => {
+                        // Nếu gửi email thành công
+                        res.render("forgot", {
+                            done: 1,
+                            email
+                        })
+
+                    })
+                    .catch((err) => {
+                        return res.render("forgot.ejs", {
+                            message: 'Lỗi xảy ra khi cố gắng gửi đến mail của bạn. Hãy thử lại!',
+                            type: 'alert-danger',
+                            email
+                        })
+                    })
+
+            } else {
+                // Ngược lại, nếu email không tồn tại
+                return res.render("forgot.ejs", {
+                    message: `Email chưa được đăng ký! Sử dụng email khác hoặc <a href="/user/signup"> Đăng ký </a>`,
+                    type: 'alert-danger',
+                    email
+                })
+            }
+
+        })
+        .catch(error => next(error))
+})
+
+router.get('/reset', (req, res, next) => {
+    // trước khi hiển thị form, ta lấy token và username
+    let email = req.query.u;
+    let token = req.query.t;
+    if (!email || !token) {
+        return res.redirect('/user/forgot');
+    }
+    let isVerify = userControllers.verifyJWT(token);
+
+    if (isVerify) {
+        res.render('reset.ejs', { email, message: "Hãy nhập mật khẩu mới!" })
+    }
+    else { // link đã hết hạn.
+        return res.render('forgot.ejs', {
+            message: "Link xác thực đã hết hạn. Hãy nhập lại email của bạn, chúng tôi sẽ gửi cho bạn hướng dẫn!"
+        })
+    }
+})
+
+router.post('/reset', (req, res, next) => {
+    let email = req.body.email;
+    let password = req.body.password;
+    let confirmedPassword = req.body.confirmedPassword;
+
+    if (password !== confirmedPassword) {
+        return res.render('reset', {
+            email,
+            message: 'Mật khẩu không khớp',
+            type: 'alert-danger'
+        })
+    }
+    console.log("Emaillllll:", email)
+    userControllers.getUserByEmail(email)
+        .then(user => {
+            if (user) {
+                console.log("da tim thay")
+                user.password = password,
+                    userControllers.updatePassword(user),
+                    res.render('reset.ejs', {
+                        done: 1
+                    })
+            } else {
+                res.redirect('/user/forgot')
+            }
+        })
+})
 module.exports = router;

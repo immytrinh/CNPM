@@ -1,0 +1,50 @@
+<div class="modal">
+    <div class="auth-form">
+        <div class="auth-form__container">
+            <div class="auth-form__header">
+                <h3 class="auth-form__heading">Lấy lại mật khẩu</h3>
+                <!-- <a class="auth-form__switch-btn" href="/user/login">Đăng nhập</a> -->
+            </div>
+
+            <form class="auth-form__form" action="/user/forgot" id="forgot_form" method="POST">
+                <% if(typeof done !="undefined" && done) { %>
+                    Một email đã được gửi đến <b>
+                        <%= email %>
+                    </b> với hướng dẫn cụ thể. Kiểm tra email của bạn!
+                    <% } else { %>
+                        <div alert type>
+                            <% if(typeof message !="undefined" && message) { %>
+                                <strong>
+                                    <%= message %>
+                                </strong>
+                                <% } %>
+                        </div>
+                        <div class=" auth-form__group">
+                            <input type="email" class="auth-form__input" id="email" name="email"
+                                placeholder="Email là tên người dùng">
+                        </div>
+
+                        <div class="auth-form__controls">
+                            <button class="btn btn--primary">Gửi</button>
+                        </div>
+                        <% } %>
+            </form>
+
+
+            <div class="auth-form__controls">
+                <a class="btn auth-form__controls-back" href="/">TRỞ LẠI</a>
+            </div>
+        </div>
+
+        <div class="auth-form__socials">
+            <a href="" class="auth-form__socials--facebook btn btn--btn-size-s btn--with-icon">
+                <i class="auth-form__socials-icon fa-brands fa-facebook-square"></i>
+                <span class="auth-form__socials-title">Kết nối với Facebook</span>
+            </a>
+            <a href="" class="auth-form__socials--google btn btn--btn-size-s btn--with-icon">
+                <i class="auth-form__socials-icon fa-brands fa-google"></i>
+                <span class="auth-form__socials-title">Kết nối với Google</span>
+            </a>
+        </div>
+    </div>
+</div>
