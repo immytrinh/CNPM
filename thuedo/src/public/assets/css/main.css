@@ -241,6 +241,7 @@
         opacity: 0;
         transform: scale(0);
     }
+
     to {
         opacity: 1;
         transform: scale(1);
@@ -434,7 +435,7 @@
     content: '';
     display: block;
     height: 18px;
-    margin: 0 16px ;
+    margin: 0 16px;
     border-left: 1px solid var(--border-color);
 }
 
@@ -457,7 +458,7 @@
 .header__shopname {
     font-size: 30px;
     color: #fff;
-    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     position: relative;
     top: -7px;
 }
@@ -499,7 +500,7 @@
     font-size: 1.5rem;
 }
 
-.header__search-input:focus ~ .header__search-history {
+.header__search-input:focus~.header__search-history {
     display: block;
 }
 
@@ -540,8 +541,7 @@
     color: var(--white-color);
 }
 
-.header__search-select:hover
-.header__search-option {
+.header__search-select:hover .header__search-option {
     display: block;
 }
 
@@ -619,8 +619,7 @@
     cursor: pointer;
 }
 
-.header__cart-wrap:hover
-.header__cart-list {
+.header__cart-wrap:hover .header__cart-list {
     display: block;
 }
 
@@ -876,13 +875,13 @@
 }
 
 .category-item--active .category-item__link::before {
-     content: "";
-     position: absolute;
-     top: 50%;
-     left: 8px;
-     border: 4px solid;
-     transform: translateY(calc(-50% - 1px));
-     border-color: transparent transparent transparent var(--primary-color);
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 8px;
+    border: 4px solid;
+    transform: translateY(calc(-50% - 1px));
+    border-color: transparent transparent transparent var(--primary-color);
 }
 
 .category-item__link {
@@ -971,7 +970,7 @@
     color: #555;
 }
 
-/* Product item */ 
+/* Product item */
 .home-product {
     margin-bottom: 10px;
 }
@@ -1076,7 +1075,7 @@ i.home-product-item__like-icon-fill {
     display: flex;
     justify-content: space-between;
     margin: 3px 10px 0;
-    color: rgba(0,0,0,.65);
+    color: rgba(0, 0, 0, .65);
     font-size: 1.2rem;
     font-weight: 300;
 }
@@ -1231,4 +1230,13 @@ i.home-product-item__like-icon-fill {
 .short-header {
     height: 60px;
     background-color: var(--primary-color);
+}
+
+.keep-logged-in-checkbox {
+    margin-right: 7px;
+    margin-bottom: 2px;
+}
+
+.keep-logged-in-checkbox:hover {
+    cursor: pointer;
 }

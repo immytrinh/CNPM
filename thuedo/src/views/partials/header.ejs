@@ -5,13 +5,13 @@
                 <li class="header__navbar-item header__navbar-item--has-qr header__navbar-item--separate">
                     Tải ứng dụng
                     <div class="header__qr">
-                        <img src="./assets/img/qr_code.png" alt="QR Code" class="header__qr-img">
+                        <img src="/assets/img/qr_code.png" alt="QR Code" class="header__qr-img">
                         <div class="header__qr-apps">
                             <a href="" class="header__qr-link">
-                                <img src="./assets/img/chplay.png" alt="CHPlay" class="header__qr-download-img">
+                                <img src="/assets/img/chplay.png" alt="CHPlay" class="header__qr-download-img">
                             </a>
                             <a href="" class="header__qr-link">
-                                <img src="./assets/img/app_store.png" alt="CHPlay" class="header__qr-download-img">
+                                <img src="/assets/img/app_store.png" alt="CHPlay" class="header__qr-download-img">
                             </a>
                         </div>
                     </div>
@@ -86,11 +86,32 @@
                         Trợ giúp
                     </a>
                 </li>
-                <li><a class="js-register header__navbar-item header__navbar-item--bold header__navbar-item--separate"
-                        href="/user/signup">Đăng ký</a></li>
-                <li><a class="js-login header__navbar-item header__navbar-item--bold" href="/user/login">Đăng
-                        nhập</a></li>
-                <!-- <li class="header__navbar-item header__navbar-user">
+                <% if(typeof isLoggedIn !="undefined" && isLoggedIn) { %>
+                    <li class="header__navbar-item header__navbar-user">
+                        <img src="/assets/img/avatar.jpg" alt="" class="header__navbar-user-img">
+                        <span class="header__navbar-user-name">
+                            <%=email%>
+                        </span>
+
+                        <ul class="header__navbar-user-menu">
+                            <li class="header__navbar-user-item">
+                                <a href="/user/information">Thông tin cá nhân</a>
+                            </li>
+                            <li class="header__navbar-user-item">
+                                <a href="/add-product">Đăng sản phẩm</a>
+                            </li>
+                            <li class="header__navbar-user-item header__navbar-user-item--separate">
+                                <a href="/user/logout">Đăng xuất</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <%} else { %>
+                        <li><a class="js-register header__navbar-item header__navbar-item--bold header__navbar-item--separate"
+                                href="/user/signup">Đăng ký</a></li>
+                        <li><a class="js-login header__navbar-item header__navbar-item--bold" href="/user/login">Đăng
+                                nhập</a></li>
+                        <%}%>
+                            <!-- <li class="header__navbar-item header__navbar-user">
                     <img src="https://scontent.fsgn3-1.fna.fbcdn.net/v/t39.30808-6/278745912_726968738496356_2527730021978601616_n.jpg?_nc_cat=104&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=oPZdpnUVw5QAX91rbG4&_nc_ht=scontent.fsgn3-1.fna&oh=00_AT_e9EPKvKsUpqK2bhVE-h0_w6ICJR0g8XkGx27aT_rlfQ&oe=62EAC102" alt="" class="header__navbar-user-img">
                     <span class="header__navbar-user-name">Duy Khánh</span>
 
@@ -122,7 +143,7 @@
                         </g>
                     </svg>
                 </a> -->
-                <img src="./assets/img/logo.svg" alt="Logo" class="header__logo">
+                <img src="/assets/img/logo.svg" alt="Logo" class="header__logo">
                 <span class="header__shopname">Rentee</span>
             </div>
 
@@ -174,7 +195,7 @@
 
                     <!-- No cart: header__cart-list--no-cart -->
                     <div class="header__cart-list">
-                        <img src="./assets/img/no_cart.png" alt="Giỏ hàng trống" class="header__cart-no-cart-img">
+                        <img src="/assets/img/no_cart.png" alt="Giỏ hàng trống" class="header__cart-no-cart-img">
                         <span class="header__cart-list-no-cart-msg">Chưa có sản phẩm</span>
 
                         <h4 class="header__cart-heading">Sản phẩm đã lưu</h4>

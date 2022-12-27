@@ -6,7 +6,7 @@
                 <a class="auth-form__switch-btn" href="/user/signup">Đăng ký</a>
             </div>
 
-            <form class="auth-form__form">
+            <form class="auth-form__form" action="/user/login" id="login_form" method="POST">
                 <div alert type>
                     <% if(typeof message !="undefined" && message) { %>
                         <strong>
@@ -15,24 +15,32 @@
                         <% } %>
                 </div>
                 <div class="auth-form__group">
-                    <input type="text" class="auth-form__input" placeholder="Email">
+                    <input type="email" class="auth-form__input" id="email" name="email" placeholder="Email">
                 </div>
                 <div class="auth-form__group">
-                    <input type="password" class="auth-form__input" placeholder="Mật khẩu">
+                    <input type="password" class="auth-form__input" id="password" name="password"
+                        placeholder="Mật khẩu">
                 </div>
+
+                <div class="auth-form__aside">
+                    <div class="auth-form__help">
+                        <a href="" class="auth-form__help-link auth-form__help-forgot">Quên mật khẩu</a>
+                        <span class="auth-form__help-separate"></span>
+                        <input class="keep-logged-in-checkbox" type="checkbox" id="keepLoggedIn" name="keepLoggedIn">
+                        <label for="keepLoggedIn" class="auth-form__help-link auth-form__help-forgot">Duy trì đăng
+                            nhập? </label>
+                    </div>
+
+                    <div class="auth-form__controls">
+                        <button class="btn btn--primary">ĐĂNG NHẬP</button>
+                    </div>
+                </div>
+
             </form>
 
-            <div class="auth-form__aside">
-                <div class="auth-form__help">
-                    <a href="" class="auth-form__help-link auth-form__help-forgot">Quên mật khẩu</a>
-                    <span class="auth-form__help-separate"></span>
-                    <a href="" class="auth-form__help-link">Cần trợ giúp?</a>
-                </div>
-            </div>
 
             <div class="auth-form__controls">
                 <a class="btn auth-form__controls-back" href="/">TRỞ LẠI</a>
-                <button class="btn btn--primary">ĐĂNG NHẬP</button>
             </div>
         </div>
 
