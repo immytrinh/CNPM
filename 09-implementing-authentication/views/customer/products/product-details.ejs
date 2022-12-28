@@ -1,6 +1,7 @@
-<%- include('../../shared/includes/head', { pageTitle: 'All Products' }) %>
+<%- include('../../shared/includes/head', { pageTitle: product.title }) %>
 <link rel="stylesheet" href="/styles/forms.css">
 <link rel="stylesheet" href="/styles/products.css">
+<script src="/scripts/cart-management.js" defer></script>
 </head>
 <body>
   <%- include('../../shared/includes/header') %>
@@ -27,8 +28,8 @@
                 <label for="quantity">Số lượng</label>
                 <input type="number" id="quantity" name="quantity" value="0" min="1" step="1" required>
             </p>
-            <a class="btn" href="/checkout/<%= product.id %>">Thuê</a>
-            <button class="btn btn-alt">Add to Cart</button>
+            <a class="btn" href="/checkout">Thuê</a>
+            <button class="btn" data-productid="<%= product.id %>" data-csrf="<%= locals.csrfToken %>">Add to Cart</button>
         </div>
 
     </header>
