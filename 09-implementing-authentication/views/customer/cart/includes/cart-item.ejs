@@ -1,6 +1,8 @@
 <article class="cart-item" href="/products/<%= item.product.id %>">
+    <img src="<%= item.product.imageUrl %>" alt="<%= item.product.title %>" >
     <div class="cart-item-info">
         <h2><%= item.product.title %></h2>
-        <p><%= item.product.price %><span class="cart-product-price">(<%= item.product.title %>)</span></p>
+        <p><%= item.product.price %> VND/ 1 ngày</p>
+        <a class="btn btn-alt" href="/products/<%= item.product.id %>">View Details</a>
     </div>
 </article>
