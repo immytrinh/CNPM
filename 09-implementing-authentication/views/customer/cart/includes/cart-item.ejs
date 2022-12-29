@@ -1,3 +1,4 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <article class="cart-item" href="/products/<%= item.product.id %>">
     <img src="<%= item.product.imageUrl %>" alt="<%= item.product.title %>" >
     <div class="cart-item-info">
@@ -5,4 +6,7 @@
         <p><%= item.product.price %> VND/ 1 ngày</p>
         <a class="btn btn-alt" href="/products/<%= item.product.id %>">View Details</a>
     </div>
+    <button class="btn" id="trash" data-productid="<%= item.product.id %>" data-csrf = "<%= locals.csrfToken %>">
+        <i class="fa fa-trash"></i>
+    </button>
 </article>
