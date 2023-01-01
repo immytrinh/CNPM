@@ -1,13 +1,13 @@
 import db from '../models'
 let controller = {}
-let Category = db.Category
+let Product = db.Product
 
 controller.getAll = () => {
     return new Promise((resolve, reject) => {
-        Category
+        Product
             .findAll({
-                attributes: ['categoryId', 'name'],
-                // include: [{ model: db.Products }]
+                // include: [{ db: db.Category }],
+                attributes: ['productId', 'name', 'price', 'imagePath', 'description']
             })
             .then(data => resolve(data))
             .catch(error => reject(new Error(error)))
