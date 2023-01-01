@@ -28,7 +28,11 @@
                 <label for="quantity">Số lượng</label>
                 <input type="number" id="quantity" name="quantity" value="0" min="1" step="1" required>
             </p>
-            <a class="btn" href="/checkout">Thuê</a>
+            <% if (!locals.isAuth)  {%>
+              <a class="btn" href="/login">Thuê</a>
+            <% } else { %>
+              <a class="btn" href="/checkout">Thuê</a>
+            <% } %>
             <button class="btn" data-productid="<%= product.id %>" data-csrf="<%= locals.csrfToken %>">Add to Cart</button>
         </div>
 
