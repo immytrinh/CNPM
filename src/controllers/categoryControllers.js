@@ -6,10 +6,11 @@ controller.getAll = (query) => {
     return new Promise((resolve, reject) => {
         let options = { 
         attributes: ['categoryId', 'name'],
-        include: [{ 
-            model: Product,
-            where:{}
-        }]};
+        // include: [{ 
+        //     model: Product,
+        //     where:{}
+        // }]
+    };
 
         if(query && query.search != ''){
             options.include[0].where.name = {

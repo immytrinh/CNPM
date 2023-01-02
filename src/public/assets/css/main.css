@@ -529,6 +529,9 @@
     border: none;
     border-radius: 2px;
     margin-right: 3px;
+    color: #ffffff;
+    font-size: small;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .header__search-btn:hover {
