@@ -8,6 +8,10 @@ router.get('/', (req, res, next) => {
         req.query.category = 0;
     }
 
+    if (req.query.search == null || (req.query.search.trim() == '')) {
+        req.query.search = '';
+    }
+
     let categoryController = require('../controllers/categoryControllers');
     categoryController
         .getAll()

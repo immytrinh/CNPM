@@ -1,17 +1,20 @@
 import db from '../models'
+const Sequelize = require('sequelize');
+const Op = Sequelize.Op;
 let controller = {}
 let Product = db.Product
+let Category = db.Category
 
 controller.getAll = (query) => {
     return new Promise((resolve, reject) => {
         let options = {
-            include: [{ db: db.Category }],
-            attributes: ['productId', 'name','categoryId', 'price', 'imagePath', 'description'],
+            include: [{ model: Category }],
+            attributes: ['productId', 'name', 'categoryId', 'price', 'imagePath', 'description'],
             where: {}
         }
-        if(query.search != ''){
+        if (query.search != '') {
             options.where.name = {
-                [Op.iLike]: `%${query.search}`
+                [Op.like]: `%${query.search}%`
             }
         }
 
