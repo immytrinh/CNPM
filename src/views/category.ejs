@@ -7,16 +7,20 @@
                         <i class="category__heading-icon fa-solid fa-list"></i>
                         Danh Mục
                     </h3>
-
-                    <ul class="category-list">
-                        <% for(let i=0; i < categories.length; i++) { %>
-                            <li class="category-item category-item--active">
-                                <a href="" class="category-item__link">
-                                    <%= categories[i].name %>
-                                </a>
-                            </li>
-                        <%} %>
-                    </ul>
+                    <form action="#">
+                        <ul class="category-list">
+                            <% for(let i=0; i < categories.length; i++) { %>
+                                <li class="category-item category-item--active">
+                                    <label for="<%categories[i].categoryId %>"
+                                        onclick="selectParam('category', <%-categories[i].categoryId %>)">
+                                        <a class="category-item__link">
+                                            <%= categories[i].name %>
+                                        </a>
+                                    </label>
+                                </li>
+                                <%} %>
+                        </ul>
+                    </form>
                 </nav>
             </div>
 
@@ -66,7 +70,7 @@
                                 </a>
                             </div>
                         <%}%>
-                                <ul class="pagination home-product__pagination">
+                                <!-- <ul class="pagination home-product__pagination">
                                     <li class="pagination-item">
                                         <a href="" class="pagination-item__link">
                                             <i class="pagination-item_-icon fa-solid fa-angle-left"></i>
@@ -99,8 +103,28 @@
                                             <i class="pagination-item_-icon fa-solid fa-angle-right"></i>
                                         </a>
                                     </li>
-                                </ul>
+                                </ul> -->
                     </div>
                 </div>
             </div>
         </div>
+    </div>
+</div>
+
+<script>
+    let urlParams = new URLSearchParams(location.search);
+    let params = {
+        category: 0
+    }
+    for (let key in params) {
+        if (!urlParams.has(key)) {
+            urlParams.append(key, params[key])
+        }
+    }
+
+    function selectParam(key, value) {
+        urlParams.set(key, value);
+        let url = `/products?${urlParams.toString()}`;
+        location.href = url;
+    }
+</script>
