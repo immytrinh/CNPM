@@ -1,7 +1,6 @@
 import express from "express";
 import bodyParser from "body-parser"; // Hỗ trợ lấy các tham số mà phía client sử dụng: query, params
 import viewEngine from "./config/viewEngine"
-import initWebRoutes from "./route/web"
 import connectDB from "./config/connectDB"
 require('dotenv').config()
 //Use cookie
@@ -26,7 +25,6 @@ app.use(session({
 
 // config app
 viewEngine(app);
-// initWebRoutes(app);
 
 connectDB();
 // Khởi tạo biến session

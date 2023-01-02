@@ -91,7 +91,7 @@ controller.updatePassword = (user) => {
         password: user.password,
     },
         {
-            where: { userId: user.userId }
+            where: { id: user.id }
         })
 }
 module.exports = controller;
