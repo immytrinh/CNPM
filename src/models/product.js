@@ -2,6 +2,7 @@
 const {
     Model
 } = require('sequelize');
+const Category = require('./category');
 module.exports = (sequelize, DataTypes) => {
     class Product extends Model {
         /**
@@ -14,6 +15,10 @@ module.exports = (sequelize, DataTypes) => {
         }
     };
     Product.init({
+        productId: {
+            type: DataTypes.INTEGER,
+            primaryKey: true
+        },
         name: DataTypes.STRING,
         price: DataTypes.FLOAT,
         categoryId: DataTypes.STRING,

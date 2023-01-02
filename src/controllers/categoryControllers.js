@@ -2,13 +2,23 @@ import db from '../models'
 let controller = {}
 let Category = db.Category
 let Product = db.Product
-controller.getAll = () => {
+controller.getAll = (query) => {
     return new Promise((resolve, reject) => {
+        let options = { 
+        attributes: ['categoryId', 'name'],
+        include: [{ 
+            model: Product,
+            where:{}
+        }]};
+
+        if(query && query.search != ''){
+            options.include[0].where.name = {
+                [Op.iLike]: `%${query.search}`
+            }
+        }
+
         Category
-            .findAll({
-                attributes: ['categoryId', 'name'],
-                // include: [{ model: Product }]
-            })
+            .findAll(options)
             .then(data => {
                 // console.log(data[0].categoryId);
                 resolve(data)
