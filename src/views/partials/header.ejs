@@ -135,7 +135,7 @@
 
         <!-- Header with search -->
         <div class="header-with-search">
-            <div class="header__shop">
+            <a class="header__shop" href="/">
                 <!-- <a href="/" class="header__logo-link">
                     <svg class="header__logo-img" viewBox="0 0 192 65">
                         <g fill-rule="evenodd">
@@ -145,11 +145,11 @@
                 </a> -->
                 <img src="/assets/img/logo.svg" alt="Logo" class="header__logo">
                 <span class="header__shopname">Rentee</span>
-            </div>
+            </a>
 
-            <div class="header__search">
+            <form action="/products?" method="GET" class="header__search"> 
                 <div class="header__search-input-wrap">
-                    <input type="text" class="header__search-input" placeholder="Nhập để tìm kiếm sản phẩm">
+                    <input type="text" name="search" class="header__search-input" placeholder="Nhập để tìm kiếm sản phẩm">
 
                     <!-- Search History -->
                     <!-- <div class="header__search-history">
@@ -167,11 +167,11 @@
                         </ul>
                     </div> -->
                 </div>
-                <div class="header__search-select">
+                <!-- <div class="header__search-select">
                     <span class="header__search-select-label">Trong shop</span>
-                    <i class="header__search-select-icon fa-solid fa-angle-down"></i>
+                    <i class="header__search-select-icon fa-solid fa-angle-down"></i> -->
 
-                    <ul class="header__search-option">
+                    <!-- <ul class="header__search-option">
                         <li class="header__search-option-item header__search-option-item--active">
                             <span>Trong shop</span>
                             <i class="fa-solid fa-check"></i>
@@ -180,12 +180,13 @@
                             <span>Ngoài shop</span>
                             <i class="fa-solid fa-check"></i>
                         </li>
-                    </ul>
-                </div>
-                <button class="header__search-btn">
-                    <i class="header__search-btn-icon fa-solid fa-magnifying-glass"></i>
-                </button>
-            </div>
+                    </ul> -->
+                <!-- </div> -->
+                
+                    <button class="header__search-btn" type="submit" >Search
+                        <i class="header__search-btn-icon fa-solid fa-magnifying-glass"></i>
+                    </button>
+        </form>
 
             <!-- Cart Layout -->
             <div class="header__cart">

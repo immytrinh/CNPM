@@ -1,9 +1,10 @@
 import db from '../models'
-const Sequelize = require('sequelize');
-const Op = Sequelize.Op;
 let controller = {}
 let Product = db.Product
 let Category = db.Category
+const Sequelize = require('sequelize');
+const Op = Sequelize.Op;
+
 
 controller.getAll = (query) => {
     return new Promise((resolve, reject) => {

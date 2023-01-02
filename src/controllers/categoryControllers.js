@@ -12,6 +12,7 @@ controller.getAll = (query) => {
             }]
         };
 
+
         if (query && query.search != '') {
             options.include[0].where.name = {
                 [Op.iLike]: `%${query.search}`
