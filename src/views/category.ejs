@@ -15,7 +15,7 @@
                                     <%= categories[i].name %>
                                 </a>
                             </li>
-                            <%} %>
+                        <%} %>
                     </ul>
                 </nav>
             </div>
@@ -50,7 +50,7 @@
                         <!-- Product item -->
                         <% for(let i=0; i < products.length; i++){ %>
                             <div class="grid__column-2-4">
-                                <a href="" class="home-product-item">
+                                <a href="/products/<%= products[i].dataValues.productId %>" class="home-product-item">
                                     <div class="home-product-item__img"
                                         style="background-image:url(<%= products[i].imagePath %>) ">
                                     </div>
@@ -65,7 +65,7 @@
 
                                 </a>
                             </div>
-                            <%}%>
+                        <%}%>
                                 <ul class="pagination home-product__pagination">
                                     <li class="pagination-item">
                                         <a href="" class="pagination-item__link">

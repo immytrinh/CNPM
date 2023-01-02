@@ -1,0 +1,23 @@
+h1 {
+  margin-top: 3rem;
+  text-align:center;
+  color: var(--rentee-color);
+}
+
+form {
+  max-width: 25rem;
+  margin: var(--space-8) auto;
+  padding: var(--space-4);
+  background-color: var(--white);
+  border-radius: var(--border-radius-medium);
+  text-align: center;
+}
+
+form a{
+  color: var(--rentee-color);
+}
+
+form a:hover,
+form a:active{
+  color: var(--blue-pastel);
+}
