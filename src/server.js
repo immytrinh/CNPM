@@ -1,3 +1,4 @@
+// backup
 import express from "express";
 import bodyParser from "body-parser"; // Hỗ trợ lấy các tham số mà phía client sử dụng: query, params
 import viewEngine from "./config/viewEngine"
