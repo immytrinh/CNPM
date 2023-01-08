@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Đặt Hàng</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css?family=Source+Sans+3:200,300,regular,500,600,700,800,900,200italic,300italic,italic,500italic,600italic,700italic,800italic,900italic"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="/assets/styles/base.css">
+  <link rel="stylesheet" href="/assets/styles/navigation.css">
+  <script src="./public/scripts/mobile.js" defer></script>
+  <link rel="stylesheet" href="/assets/styles/forms.css">
+  <link rel="stylesheet" href="/assets/styles/auth.css">
+  <link rel="stylesheet" href="/assets/styles/place-order.css">
+</head>
+
+<body>
+  <main class="container">
+    <h1>Đặt Hàng</h1>
+    <form method="POST" action="/products/place-order/success">
+      <input type="hidden" name="productId" value="<%= orderInfo.productId %>" />
+      <input type="hidden" name="start-date" value="<%= orderInfo.start_date %>" />
+      <input type="hidden" name="end-date" value="<%= orderInfo.end_date %>" />
+      <input type="hidden" name="quantity" value="<%= orderInfo.quantity %>" />
+      <input type="hidden" name="totalPrice" value="<%= orderInfo.totalPrice %>" />
+      <p>
+        <label for="fullname">Họ và tên</label>
+        <input type="text" id="fullname" name="fullname" value="" required>
+      </p>
+      <p>
+        <label for="sdt">Số điện thoại</label>
+        <input type="tel" id="sdt" name="sdt" value="" required>
+      </p>
+      <p>
+        <label for="street">Địa chỉ</label>
+        <input type="text" id="street" name="street" value="" required>
+      <div class="address_detail">
+        <select name="calc_shipping_provinces" required="">
+          <option value="">Tỉnh / Thành phố</option>
+        </select>
+        <select name="calc_shipping_district" required="">
+          <option value="">Quận / Huyện</option>
+        </select>
+        <input class="billing_address_1" name="" type="hidden" value="">
+        <input class="billing_address_2" name="" type="hidden" value="">
+      </div>
+      </p>
+      <div>
+        <div class="totalPrice">Tổng tiền: <%= orderInfo.totalPrice %> VND</div>
+        <button class="btn" type="submit">Đặt Hàng</button>
+      </div>
+    </form>
+  </main>
+
+
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://web8802.com/wp-content/themes/hienads/assets/js/quanhuyen.js"></script>
+  <script>
+    if (address_2 = localStorage.getItem('address_2_saved'))
+    {
+
+      $('select[name="calc_shipping_district"] option').each(function () {
+
+        if ($(this).text() == address_2)
+        {
+
+          $(this).attr('selected', '')
+
+        }
+
+      })
+
+      $('input.billing_address_2').attr('value', address_2)
+
+    }
+
+    if (district = localStorage.getItem('district'))
+    {
+
+      $('select[name="calc_shipping_district"]').html(district)
+
+      $('select[name="calc_shipping_district"]').on('change', function () {
+
+        var target = $(this).children('option:selected')
+
+        target.attr('selected', '')
+
+        $('select[name="calc_shipping_district"] option').not(target).removeAttr('selected')
+
+        address_2 = target.text()
+
+        $('input.billing_address_2').attr('value', address_2)
+
+        district = $('select[name="calc_shipping_district"]').html()
+
+        localStorage.setItem('district', district)
+
+        localStorage.setItem('address_2_saved', address_2)
+
+      })
+
+    }
+
+    $('select[name="calc_shipping_provinces"]').each(function () {
+
+      var $this = $(this),
+
+        stc = ''
+
+      c.forEach(function (i, e) {
+
+        e += +1
+        
+        stc += '<option value="' + i + '">' + i + '</option>'
+
+        $this.html('<option value="">Tỉnh / Thành phố</option>' + stc)
+
+        if (address_1 = localStorage.getItem('address_1_saved'))
+        {
+
+          $('select[name="calc_shipping_provinces"] option').each(function () {
+
+            if ($(this).text() == address_1)
+            {
+
+              $(this).attr('selected', '')
+
+            }
+
+          })
+
+          $('input.billing_address_1').attr('value', address_1)
+
+        }
+
+        $this.on('change', function (i) {
+
+          i = $this.children('option:selected').index() - 1
+
+          var str = '',
+
+            r = $this.val()
+
+          if (r != '')
+          {
+
+            arr[i].forEach(function (el) {
+
+              str += '<option value="' + el + '">' + el + '</option>'
+
+              $('select[name="calc_shipping_district"]').html('<option value="">Quận / Huyện</option>' + str)
+
+            })
+
+            var address_1 = $this.children('option:selected').text()
+
+            var district = $('select[name="calc_shipping_district"]').html()
+
+            localStorage.setItem('address_1_saved', address_1)
+
+            localStorage.setItem('district', district)
+
+            $('select[name="calc_shipping_district"]').on('change', function () {
+
+              var target = $(this).children('option:selected')
+
+              target.attr('selected', '')
+
+              $('select[name="calc_shipping_district"] option').not(target).removeAttr('selected')
+
+              var address_2 = target.text()
+
+              $('input.billing_address_2').attr('value', address_2)
+
+              district = $('select[name="calc_shipping_district"]').html()
+
+              localStorage.setItem('district', district)
+
+              localStorage.setItem('address_2_saved', address_2)
+
+            })
+
+          } else
+          {
+
+            $('select[name="calc_shipping_district"]').html('<option value="">Quận / Huyện</option>')
+
+            district = $('select[name="calc_shipping_district"]').html()
+
+            localStorage.setItem('district', district)
+
+            localStorage.removeItem('address_1_saved', address_1)
+
+          }
+
+        })
+
+      })
+
+    })
+
+  </script>
+
+</body>
+
+</html>

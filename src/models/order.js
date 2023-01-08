@@ -2,6 +2,7 @@
 const {
     Model
 } = require('sequelize');
+
 module.exports = (sequelize, DataTypes) => {
     class Order extends Model {
         /**
@@ -14,6 +15,7 @@ module.exports = (sequelize, DataTypes) => {
         }
     };
     Order.init({
+        orderId: { type: DataTypes.INTEGER , primaryKey: true },
         userId: DataTypes.INTEGER,
         productId: DataTypes.INTEGER,
         totalPrice: DataTypes.FLOAT,
@@ -25,6 +27,7 @@ module.exports = (sequelize, DataTypes) => {
     }, {
         sequelize,
         modelName: 'Order',
+        freezeTableName: true,
     });
     return Order;
 };

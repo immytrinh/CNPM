@@ -6,8 +6,10 @@ require('dotenv').config()
 //Use cookie
 import cookieParser from "cookie-parser";
 import session from "express-session";
-
+var path = require("path");
 const app = express();
+
+app.use(express.static(path.join(__dirname, '..', '/uploads/images/')));
 const port = process.env.PORT || 3030;
 
 // cấu hình các tham số phía client gửi lên
@@ -38,6 +40,7 @@ app.use((req, res, next) => {
 app.use("/", require('./route/indexRouter'))
 app.use("/user", require("./route/userRouter"))
 app.use("/products", require('./route/productRouter'))
+app.use('/uploads/images', express.static(path.join(__dirname, '../uploads/images')))
 
 app.listen(port, () => {
     console.log(`Server is running at port ${port}`)

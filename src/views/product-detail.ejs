@@ -1,9 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 
- <head>
+<head>
   <meta charset="UTF-8" />
-
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Haha</title>
@@ -27,7 +26,7 @@
         <h2 class="product-price">
           <%= product.price %> VND
         </h2>
-        <form method="post">
+        <form method="post" action="/products/place-order">
           <section class="selection-date">
             <p>Chọn ngày bạn muốn thuê</p>
             <div class="field-wrap">
@@ -45,8 +44,10 @@
             <label for="quantity">Số lượng</label>
             <input type="number" id="quantity" name="quantity" value="0" min="1" step="1" required>
           </p>
+          <input type="hidden" name="productId" value="<%= product.productId %>" />
+          <input type="hidden" name="price" value="<%= product.price %>" />
           <button class="btn" type="submit">Thuê</button>
-          <button class="btn">Add to Saved</button>
+          <button class="btn">Lưu</button>
         </form>
       </div>
     </header>
@@ -56,7 +57,7 @@
         <%= product.description %>
       </p>
     </div>
-    
+
   </main>
   <script>
     var today = new Date();

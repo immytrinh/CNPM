@@ -1,0 +1,40 @@
+h1 {
+  margin-top: 3rem;
+  text-align: left;
+  color: var(--rentee-color);
+  font-size: 35px;
+}
+
+form {
+  max-width: 100rem;
+  margin: var(--space-8) auto;
+  padding: var(--space-4);
+  background-color: var(--white);
+  border-radius: var(--border-radius-medium);
+  text-align: left;
+  font-size: 15px;
+}
+
+form select {
+  max-width: 100rem;
+  margin: var(--space-8) auto;
+  background-color: var(--white);
+  border-radius: var(--border-radius-medium);
+  text-align: left;
+  border-color: var(--blue-pastel);
+  border: 2px solid var(--blue-pastel);
+  justify-content: space-between;
+  font: inherit;
+  padding: var(--space-2);
+  margin-bottom: 0;
+}
+
+
+form a {
+  color: var(--rentee-color);
+}
+
+form a:hover,
+form a:active {
+  color: var(--blue-pastel);
+}

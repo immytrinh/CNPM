@@ -11,7 +11,7 @@ router.get("/", (req, res, next) => {
     //         res.render("index")
     //     })
     //     .catch(error => next(error));
-    res.redirect('/products')
+    res.redirect('/products');
 })
 
 module.exports = router;

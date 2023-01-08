@@ -2,6 +2,7 @@
 import db from '../models'
 let controller = {}
 let User = db.User
+let Product = db.Product
 let bcrypt = require("bcryptjs")
 let jwt = require("jsonwebtoken")
 require('dotenv').config()
@@ -9,7 +10,6 @@ require('dotenv').config()
 const SECRET_KEY = "jlkasdfasdjf";
 
 controller.getUserByEmail = (email) => {
-    console.log(email)
     return User.findOne({
         where: { email: email }
     })
@@ -93,5 +93,13 @@ controller.updatePassword = (user) => {
         {
             where: { id: user.id }
         })
+}
+
+controller.addProduct = (product) => {
+    return Product.create(product)
+}
+let UsersFile = db.UsersFile
+controller.addFile = (file) => {
+    return UsersFile.create(file);
 }
 module.exports = controller;
