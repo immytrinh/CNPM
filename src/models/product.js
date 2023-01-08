@@ -19,7 +19,8 @@ module.exports = (sequelize, DataTypes) => {
     Product.init({
         productId: {
             type: DataTypes.INTEGER,
-            primaryKey: true
+            primaryKey: true,
+            autoIncrement: true,
         },
         name: DataTypes.STRING,
         price: DataTypes.FLOAT,

@@ -1,3 +1,5 @@
+import { name } from "ejs";
+import db, { sequelize } from '../models'
 import express from "express";
 import userControllers from "../controllers/userControllers"
 let router = express.Router();
@@ -192,4 +194,49 @@ router.post('/reset', (req, res, next) => {
             }
         })
 })
+
+router.get('/add-product', (req, res, next) => {
+
+    if (req.session.user != null){
+        return res.render("new-product");
+    }
+    else{
+        return res.render("logIn.ejs");
+    }t
+});
+
+const multer = require('multer')
+var storage = multer.diskStorage({
+    destination: (req, file, callBack) => {
+        callBack(null, './uploads/images/')     // './public/images/' directory name where save the file
+    },
+    filename: (req, file, callBack) => {
+        console.log(file)
+        callBack(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname))
+    }
+})
+ 
+const path = require('path');
+var upload = multer({
+    storage: storage
+});
+
+const fs = require('fs')
+router.post('/add-product', upload.single('image'), (req, res, next) => {
+    let filepath = req.file.path;
+    filepath = path.join("../../", filepath)
+    
+    var path2 = filepath.replace(/\\/g, "/");
+    console.log(path2);
+    console.log(filepath)
+    const product = {
+        name : req.body.title,
+        price: req.body.price,
+        description: req.body.description,
+        imagePath: path2,
+    };
+    userControllers.addProduct(product);
+    return res.send("Success!");
+});
+
 module.exports = router;
