@@ -1,5 +1,6 @@
 const imagePickerElement = document.querySelector('#image-upload-control input');
 const imagePreviewElement = document.querySelector('#image-upload-control img');
+const resetButton = document.getElementById('resetButton');
 
 function updateImagePreview() {
   const files = imagePickerElement.files;
@@ -16,3 +17,8 @@ function updateImagePreview() {
 }
 
 imagePickerElement.addEventListener('change', updateImagePreview);
+
+resetButton.addEventListener('click', () => {
+  imagePreviewElement.src = '';
+  imagePreviewElement.style.display = 'none';
+});

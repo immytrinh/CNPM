@@ -99,27 +99,17 @@ a {
   border-color: var(--blue-pastel);
 }
 
-.alert {
-  border-radius: var(--border-radius-small);
-  background-color: white;
-  color: var(--color-error-500);
-  padding: var(--space-4);
-}
-
-.alert h2 {
-  font-size: 1rem;
-  margin: var(--space-2) 0;
-  text-transform: uppercase;
-}
-
-.alert p {
-  margin: var(--space-2) 0;
-}
-
 .badge {
   margin-left: var(--space-2);
   padding: 0.15rem var(--space-4);
   border-radius: 10rem;
   background-color: var(--white);
   color: var(--rentee-color);
+}
+
+.alert {
+  font-size: x-large;
+  background-color: transparent;
+  color: black;
+  margin-top: 8px;
 }

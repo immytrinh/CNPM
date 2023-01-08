@@ -95,11 +95,11 @@ controller.updatePassword = (user) => {
         })
 }
 
-controller.addProduct = (product) => {
-    return Product.create(product)
-}
-let UsersFile = db.UsersFile
-controller.addFile = (file) => {
-    return UsersFile.create(file);
+controller.addProduct = async(product) => {
+    const p = await Product.create(product);
+    if(p instanceof Product){
+        return true;
+    }
+    return false;
 }
 module.exports = controller;
