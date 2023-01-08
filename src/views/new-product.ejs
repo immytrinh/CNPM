@@ -42,7 +42,16 @@
           
               <img src="" alt="Selected image.">
             </div>
-          
+
+            <p>
+              <label for="category">Loại</label>
+              <select name="category" class="category">
+                <% for(let i = 0; i < categories.length; i++){ %> 
+                    <option value="<%= categories[i].categoryId %>" ><%- categories[i].name %></option>
+              <% }%>
+              </select>
+            </p>
+
             <p>
               <label for="summary">Summary</label>
               <input type="text" id="summary" name="summary" required maxlength="250">

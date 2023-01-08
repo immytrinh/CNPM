@@ -2,6 +2,7 @@ import { name } from "ejs";
 import db, { sequelize } from '../models'
 import express from "express";
 import userControllers from "../controllers/userControllers"
+import category from "../models/category";
 let router = express.Router();
 
 
@@ -198,11 +199,17 @@ router.post('/reset', (req, res, next) => {
 router.get('/add-product', (req, res, next) => {
 
     if (req.session.user != null){
-        return res.render("new-product");
+        let categoryController = require('../controllers/categoryControllers');
+        categoryController
+            .getAll()
+            .then(data => {
+                res.locals.categories = data;
+                return res.render("new-product");
+            });
     }
     else{
         return res.render("logIn.ejs");
-    }t
+    }
 });
 
 const multer = require('multer')
@@ -229,11 +236,13 @@ router.post('/add-product', upload.single('image'), (req, res, next) => {
     var path2 = filepath.replace(/\\/g, "/");
     console.log(path2);
     console.log(filepath)
+    console.log(req.body.category)
     const product = {
         name : req.body.title,
         price: req.body.price,
         description: req.body.description,
         imagePath: path2,
+        categoryId: req.body.category,
     };
     userControllers.addProduct(product);
     return res.send("Success!");
