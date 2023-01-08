@@ -33,3 +33,15 @@ input, textarea{
   object-fit: cover;
   border-radius: var(--border-radius-small);
 }
+
+select {
+  width: 15rem;
+  background-color: var(--white);
+  border-radius: var(--border-radius-medium);
+  text-align: left;
+  border-color: var(--blue-pastel);
+  border: 2px solid var(--blue-pastel);
+  font: inherit;
+  padding: var(--space-2);
+  margin-bottom: 0;
+}

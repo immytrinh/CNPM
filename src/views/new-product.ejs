@@ -19,28 +19,51 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="/assets/styles/base.css">
-    <link rel="stylesheet" href="/assets/styles/navigation.css">
     <link rel="stylesheet" href="/assets/styles/forms.css">
-    <link rel="stylesheet" href="/assets/styles/products.css">
-
+    <link rel="stylesheet" href="/assets/styles/toast.css">
+    
+    <script src="/assets/scripts/message-popup.js" defer></script>
     <script src="/assets/scripts/image-preview.js" defer></script>
     </head>
     <body>
     <main>
-        <h1>Add new Product</h1>
+
+      <!-- <label class="alert" >Success</label> -->
+      <% if(typeof message != 'undefined' && message.length > 0){ %>
+        <div class="toast active">
+    
+          <div class="toast-content">
+            <i class="fas fa-solid fa-check check"></i>
+        
+            <div class="message">
+              <span class="text text-1"><%= message %> </span>
+              <% if(message == "success"){ %> 
+                <span class="text text-2">Your changes has been saved</span>
+              <% }else{ %> 
+                <span class="text text-2">Unknown error!!</span>
+              <% } %> 
+            </div>
+          </div>
+          <i class="fa-solid fa-xmark close"></i>
+        
+          <!-- Remove 'active' class, this is just to show in Codepen thumbnail -->
+          <div class="progress active"></div>
+        </div>
+        <% } %> 
+        <h1>Thêm sản phẩm</h1>
         <form method="POST"  enctype="multipart/form-data">
             <p>
-              <label for="title">Title</label>
-              <input type="text" id="title" name="title" value="product.title" required>
+              <label for="title">Tên sản phẩm</label>
+              <input type="text" id="title" name="title" required>
             </p>
           
             <div id="image-upload-control">
               <p>
-                <label for="image">Image</label>
-                <input type="file" id="image" name="image" accept="image/png,image/jpg">
+                <label for="image">Hình ảnh</label>
+                <input type="file" id="image" name="image" accept="image/png, image/jpg" value="" required>
               </p>
           
-              <img src="" alt="Selected image.">
+              <img src="" alt="Selected image." >
             </div>
 
             <p>
@@ -51,24 +74,24 @@
               <% }%>
               </select>
             </p>
+          
+            <p>
+              <label for="price">Giá</label>
+              <input type="number" id="price" name="price" min="1000" step="1000" required>
+            </p>
 
             <p>
-              <label for="summary">Summary</label>
-              <input type="text" id="summary" name="summary" required maxlength="250">
+              <label for="availability">Số lượng</label>
+              <input type="number" id="quantity" name="quantity" min="1" step="1" required>
             </p>
           
             <p>
-              <label for="price">Price</label>
-              <input type="number" id="price" name="price" min="0.01" step="0.01" required>
-            </p>
-          
-            <p>
-              <label for="description">Description</label>
+              <label for="description">Mô tả</label>
               <textarea id="description" name="description" rows="7" required></textarea>
             </p>
           
             <p>
-              <button type="reset" class="btn btn-alt">Reset</button>
+              <button id="resetButton" type="reset" class="btn btn-alt" >Reset</button>
               <button class="btn" type="submit">Save</button>
             </p>
           </form>

@@ -243,9 +243,24 @@ router.post('/add-product', upload.single('image'), (req, res, next) => {
         description: req.body.description,
         imagePath: path2,
         categoryId: req.body.category,
+        availability: req.body.quantity,
     };
-    userControllers.addProduct(product);
-    return res.send("Success!");
+    let categoryController = require('../controllers/categoryControllers');
+    if(userControllers.addProduct(product)){
+        categoryController
+            .getAll()
+            .then(data => {
+                res.locals.categories = data;
+                return res.render('new-product.ejs', {message: 'success'});
+            })
+    }
+    else{categoryController
+        .getAll()
+        .then(data => {
+            res.locals.categories = data;
+            return res.render('new-product.ejs', {message: 'error'});
+        })
+    }
 });
 
 module.exports = router;
