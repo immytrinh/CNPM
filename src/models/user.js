@@ -11,9 +11,19 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      this.hasMany(models.Order, 
+        {
+          foreignKey: 'userId',
+          targetKey: 'id'
+        })
     }
   };
   User.init({
+    id: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true,
+    },
     email: DataTypes.STRING,
     password: DataTypes.STRING,
     fullName: DataTypes.STRING,

@@ -229,7 +229,6 @@ var upload = multer({
     storage: storage
 });
 
-const fs = require('fs')
 router.post('/add-product', upload.single('image'), (req, res, next) => {
     let filepath = req.file.path;
     filepath = path.join("../../", filepath)
@@ -243,6 +242,7 @@ router.post('/add-product', upload.single('image'), (req, res, next) => {
         price: req.body.price,
         description: req.body.description,
         imagePath: path2,
+        ownerId: req.session.user.id,
         categoryId: req.body.category,
         availability: req.body.quantity,
     };
@@ -262,6 +262,28 @@ router.post('/add-product', upload.single('image'), (req, res, next) => {
             return res.render('new-product.ejs', {message: 'error'});
         })
     }
+});
+
+router.get('/orders-manager', (req,res,next) => {
+    
+    let productController = require('../controllers/productControllers');
+    let userControllers = require('../controllers/userControllers');
+    
+    // console.log(req.session.user);
+    // if(req.session.user == null){
+    //     return res.redirect('login');
+    // }
+
+    // let ownerId = req.session.user.id;
+    // let orders = productController.getPlacedOrder(ownerId);
+    productController.getPlacedOrder(1)
+        .then(data => {
+            res.locals.orders = data;
+            // console.log(data);
+            return res.render('orders-manager');
+        });
+
+
 });
 
 module.exports = router;

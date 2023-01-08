@@ -2,6 +2,7 @@
 const {
     Model
 } = require('sequelize');
+// const { FOREIGNKEYS } = require('sequelize/types/query-types');
 
 module.exports = (sequelize, DataTypes) => {
     class Order extends Model {
@@ -12,6 +13,13 @@ module.exports = (sequelize, DataTypes) => {
          */
         static associate(models) {
             // define association here
+            this.belongsTo(models.User, {
+                foreignKey: 'userId',
+                targetKey: 'id',
+            })
+            this.belongsTo(models.Product, {
+                foreignKey: 'productId',
+            });
         }
     };
     Order.init({

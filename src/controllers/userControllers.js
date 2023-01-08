@@ -102,4 +102,9 @@ controller.addProduct = async(product) => {
     }
     return false;
 }
+
+controller.getEmailById = async(userId) => {
+    return User.findOne({
+            where: {id: userId}});
+}
 module.exports = controller;

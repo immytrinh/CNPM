@@ -1,4 +1,7 @@
 'use strict';
+
+const { FOREIGNKEYS } = require("sequelize/types/query-types");
+
 module.exports = {
     up: async (queryInterface, Sequelize) => {
         await queryInterface.createTable('products', {
@@ -10,6 +13,13 @@ module.exports = {
             },
             name: {
                 type: Sequelize.STRING
+            },
+            owner: {
+                type: Sequelize.STRING,
+                references: {
+                    model: 'users',
+                    key: 'id',
+                }
             },
             price: {
                 type: Sequelize.FLOAT

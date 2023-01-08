@@ -2,7 +2,6 @@
 const {
     Model
 } = require('sequelize');
-const Category = require('./category');
 module.exports = (sequelize, DataTypes) => {
     class Product extends Model {
         /**
@@ -12,8 +11,9 @@ module.exports = (sequelize, DataTypes) => {
          */
         static associate(models) {
             // define association here
-            this.belongsTo(models.Category, { foreignKey: 'categoryId' })
-
+            this.belongsTo(models.Category, { foreignKey: 'categoryId' });
+            this.belongsTo(models.User, {foreignKey: 'ownerId'});
+            this.hasMany(models.Order, {foreignKey: 'productId'})
         }
     };
     Product.init({
@@ -23,6 +23,9 @@ module.exports = (sequelize, DataTypes) => {
             autoIncrement: true,
         },
         name: DataTypes.STRING,
+        ownerId:{ 
+            type: DataTypes.STRING
+        },
         price: DataTypes.FLOAT,
         categoryId: DataTypes.STRING,
         availability: DataTypes.BOOLEAN,
@@ -34,7 +37,6 @@ module.exports = (sequelize, DataTypes) => {
         timestamps: false,
         sequelize,
         modelName: 'Product',
-        timestamps: false,
     });
     return Product;
 };
