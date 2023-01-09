@@ -147,9 +147,10 @@
                 <span class="header__shopname">Rentee</span>
             </a>
 
-            <form action="/products?" method="GET" class="header__search"> 
+            <form action="/products?" method="GET" class="header__search">
                 <div class="header__search-input-wrap">
-                    <input type="text" name="search" class="header__search-input" placeholder="Nhập để tìm kiếm sản phẩm">
+                    <input type="text" name="search" class="header__search-input"
+                        placeholder="Nhập để tìm kiếm sản phẩm">
 
                     <!-- Search History -->
                     <!-- <div class="header__search-history">
@@ -171,7 +172,7 @@
                     <span class="header__search-select-label">Trong shop</span>
                     <i class="header__search-select-icon fa-solid fa-angle-down"></i> -->
 
-                    <!-- <ul class="header__search-option">
+                <!-- <ul class="header__search-option">
                         <li class="header__search-option-item header__search-option-item--active">
                             <span>Trong shop</span>
                             <i class="fa-solid fa-check"></i>
@@ -182,17 +183,19 @@
                         </li>
                     </ul> -->
                 <!-- </div> -->
-                
-                    <button class="header__search-btn" type="submit" >
-                        <i class="header__search-btn-icon fa-solid fa-magnifying-glass"></i>
-                    </button>
-        </form>
+
+                <button class="header__search-btn" type="submit">
+                    <i class="header__search-btn-icon fa-solid fa-magnifying-glass"></i>
+                </button>
+            </form>
 
             <!-- Cart Layout -->
             <div class="header__cart">
                 <div class="header__cart-wrap">
                     <i class="header__cart-icon fa-solid fa-cart-shopping"></i>
-                    <span class="header__cart-notice">3</span>
+                    <span class="header__cart-notice">
+                        <%= saveProducts.length %>
+                    </span>
 
                     <!-- No cart: header__cart-list--no-cart -->
                     <div class="header__cart-list">
@@ -203,101 +206,36 @@
                         <ul class="header__cart-list-item">
 
                             <!-- Cart item -->
-                            <li class="header__cart-item">
-                                <img src="https://cf.shopee.vn/file/51af47c2e210148c3c08daa335c181df" alt=""
-                                    class="header__cart-img">
-                                <div class="header__cart-item-info">
-                                    <div class="header__cart-item-head">
-                                        <h5 class="header__cart-item-name">Tinh chất chấm mụn mờ thâm Cafuné
-                                            Essence</h5>
-                                        <div class="header__cart-item-price-wrap">
-                                            <span class="header__cart-item-price">3.000.000</span>
-                                            <span class="header__cart-item-multiply">x</span>
-                                            <span class="header__cart-item-quantity">2</span>
+                            <% for (let saveProduct of saveProducts) { %>
+                                <li class="header__cart-item">
+                                    <a href="/products/<%= saveProduct.dataValues.Product.productId %>"><img
+                                            src="<%= saveProduct.dataValues.Product.imagePath %>" alt=""
+                                            class="header__cart-img"></a>
+                                    <div class="header__cart-item-info">
+                                        <div class="header__cart-item-head">
+                                            <h5 class="header__cart-item-name">
+                                                <%= saveProduct.dataValues.Product.name %>
+                                            </h5>
+                                            <div class="header__cart-item-price-wrap">
+                                                <span class="header__cart-item-price">
+                                                    <%= saveProduct.dataValues.Product.price %>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="header__cart-item-body">
+                                            <a style="font-size: 15px; color: #052977"
+                                                onclick="deleteItem(<%= saveProduct.dataValues.Product.productId %>);">Xóa</a>
                                         </div>
                                     </div>
-                                    <div class="header__cart-item-body">
-                                        <span class="header__cart-item-description">Phân loại: Cao cấp</span>
-                                        <span class="header__cart-item-remove">Xóa</span>
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="header__cart-item">
-                                <img src="https://cf.shopee.vn/file/518c4c85da2c99e32ed146e97fc46329" alt=""
-                                    class="header__cart-img">
-                                <div class="header__cart-item-info">
-                                    <div class="header__cart-item-head">
-                                        <h5 class="header__cart-item-name">Tẩy tế bào chết cơ thể Cafuné Essence
-                                        </h5>
-                                        <div class="header__cart-item-price-wrap">
-                                            <span class="header__cart-item-price">1.200.000</span>
-                                            <span class="header__cart-item-multiply">x</span>
-                                            <span class="header__cart-item-quantity">1</span>
-                                        </div>
-                                    </div>
-                                    <div class="header__cart-item-body">
-                                        <span class="header__cart-item-description">Phân loại: Cao cấp</span>
-                                        <span class="header__cart-item-remove">Xóa</span>
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="header__cart-item">
-                                <img src="https://cf.shopee.vn/file/e019d75f816ac4ff2c37fb126cda7926" alt=""
-                                    class="header__cart-img">
-                                <div class="header__cart-item-info">
-                                    <div class="header__cart-item-head">
-                                        <h5 class="header__cart-item-name">Bột tắm trắng thảo mộc Cafuné</h5>
-                                        <div class="header__cart-item-price-wrap">
-                                            <span class="header__cart-item-price">2.999.999</span>
-                                            <span class="header__cart-item-multiply">x</span>
-                                            <span class="header__cart-item-quantity">3</span>
-                                        </div>
-                                    </div>
-                                    <div class="header__cart-item-body">
-                                        <span class="header__cart-item-description">Phân loại: Cao cấp</span>
-                                        <span class="header__cart-item-remove">Xóa</span>
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="header__cart-item">
-                                <img src="https://cf.shopee.vn/file/3e6738c165405a528c6cd3980657cda1_tn" alt=""
-                                    class="header__cart-img">
-                                <div class="header__cart-item-info">
-                                    <div class="header__cart-item-head">
-                                        <h5 class="header__cart-item-name">Giày Da Lì Nam Cao Cấp MANDO Buộc Dây
-                                            Cổ Thấp Đế Cao Chất Da PU Kiểu Dáng Công Sở Basic Thời Trang Hàn
-                                            Quốc GDB26</h5>
-                                        <div class="header__cart-item-price-wrap">
-                                            <span class="header__cart-item-price">449.000</span>
-                                            <span class="header__cart-item-multiply">x</span>
-                                            <span class="header__cart-item-quantity">1</span>
-                                        </div>
-                                    </div>
-                                    <div class="header__cart-item-body">
-                                        <span class="header__cart-item-description">Phân loại: Thời trang</span>
-                                        <span class="header__cart-item-remove">Xóa</span>
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="header__cart-item">
-                                <img src="https://cf.shopee.vn/file/534416f519afd5294835c6790dea2156_tn" alt=""
-                                    class="header__cart-img">
-                                <div class="header__cart-item-info">
-                                    <div class="header__cart-item-head">
-                                        <h5 class="header__cart-item-name">Mũ Bucket Kaki, Nhiều Màu Phong Cách
-                                            Hàn Quốc - Thời Trang MANDO PKN053</h5>
-                                        <div class="header__cart-item-price-wrap">
-                                            <span class="header__cart-item-price">99.000</span>
-                                            <span class="header__cart-item-multiply">x</span>
-                                            <span class="header__cart-item-quantity">2</span>
-                                        </div>
-                                    </div>
-                                    <div class="header__cart-item-body">
-                                        <span class="header__cart-item-description">Phân loại: Thời trang</span>
-                                        <span class="header__cart-item-remove">Xóa</span>
-                                    </div>
-                                </div>
-                            </li>
+                                </li>
+                                <% } %>
+
+                                <!-- script for delete button -->
+                                <script>
+                                    function deleteItem(productId) {
+                                        console.log(fetch('/products/deleteSave/' + productId, {method:'POST'}))
+                                    }
+                                </script>
                         </ul>
 
                         <!-- <a href="" class="header__cart-view-cart btn btn--primary">Xem giỏ hàng</a> -->

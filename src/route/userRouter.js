@@ -24,6 +24,7 @@ router.post("/login", (req, res, next) => {
                     req.session.cookie.maxAge = keepLoggedIn ? 30 * 24 * 60 * 60 * 1000 : null
                     // bật trạng thái lên
                     req.session.user = user;
+                    
                     if (req.session.returnURL) {
                         res.redirect(req.session.returnURL)
                     } else {
@@ -91,8 +92,10 @@ router.post("/signup", (req, res, next) => {
 
 })
 
-router.get("/logout", (req, res, next) => {
-    req.session.destroy(error => {
+router.get("/logout", (req, res, next) =>
+{
+    req.session.destroy(error =>
+    {
         if (error) {
             return next(error);
         }

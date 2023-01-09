@@ -47,8 +47,9 @@
           <input type="hidden" name="productId" value="<%= product.productId %>" />
           <input type="hidden" name="price" value="<%= product.price %>" />
           <button class="btn" type="submit">Thuê</button>
-          <button class="btn">Lưu</button>
+          <button class="btn" id="save">Lưu</button>
         </form>
+
       </div>
     </header>
     <div id="product-description">
@@ -76,6 +77,18 @@
     today = yyyy + '-' + mm + '-' + dd;
     document.getElementById("start-date").setAttribute("min", today);
     document.getElementById("end-date").setAttribute("min", today);
+  </script>
+  <script>
+    var saveButton = document.getElementById("save")
+    saveButton.addEventListener("click", () => {
+      const options = {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+      }
+      fetch('/products/save/<%= product.productId %>', options)
+    })
   </script>
 </body>
 

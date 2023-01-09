@@ -11,14 +11,16 @@ module.exports = (sequelize, DataTypes) => {
          */
         static associate(models) {
             // define association here
+            this.belongsTo(models.Product, { foreignKey: 'productId' });
         }
     };
     SaveProduct.init({
-        userId: DataTypes.INTEGER,
-        productId: DataTypes.INTEGER,
+        userId: { type: DataTypes.INTEGER, primaryKey: true },
+        productId: { type: DataTypes.INTEGER, primaryKey: true }
     }, {
         sequelize,
         modelName: 'SaveProduct',
+        timestamps: false,
     });
     return SaveProduct;
 };

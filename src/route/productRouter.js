@@ -46,11 +46,11 @@ router.post('/place-order', (req, res, next) =>
 {
     if (req.session.user == null)
         res.redirect('/user/login')
-    
+
     let date1 = new Date(req.body["start-date"]);
     let date2 = new Date(req.body["end-date"]);
     let diffDays = date2.getDate() - date1.getDate();
-    
+
     let order = {
         productId: req.body["productId"],
         totalPrice: req.body["price"] * req.body["quantity"] * diffDays,
@@ -58,7 +58,7 @@ router.post('/place-order', (req, res, next) =>
         end_date: req.body["end-date"],
         quantity: req.body["quantity"]
     }
-    
+
 
     res.render('place-order.ejs', { orderInfo: order })
 })
@@ -75,14 +75,44 @@ router.post('/place-order/success', (req, res, next) =>
         start_date: req.body["start-date"] + " 00:00:00",
         end_date: req.body["end-date"] + " 23:59:59",
         quantity: req.body["quantity"],
-        address: req.body["street"] + ", " + req.body["calc_shipping_district"] + ", "  + req.body["calc_shipping_provinces"],
+        address: req.body["street"] + ", " + req.body["calc_shipping_district"] + ", " + req.body["calc_shipping_provinces"],
         status: "Chờ xác nhận"
     }
 
     let orderController = require("../controllers/orderControllers")
     orderController
         .createOrder(orderInfo)
-        .then(() => res.send(orderInfo))
+        .then(() => res.redirect('/products'))
 })
+
+router.post('/save/:productId', (req, res) =>
+{
+    if (req.session.user == null)
+        return
+
+    const product_to_save = { userId: req.session.user.id, productId: req.params.productId }
+    let saveproductsController = require("../controllers/saveproductsController")
+
+    //save
+    saveproductsController.getOneSaveProduct(product_to_save)
+        .then(data =>
+        {
+            // đã lưu sản phẩm
+            if (data != null)
+                return
+            saveproductsController.createSaveProduct(product_to_save)
+        })
+
+})
+
+router.post('/deleteSave/:productId', (req, res) =>
+{
+    let saveproductsController = require("../controllers/saveproductsController")
+    const data_to_delete = { userId: req.session.user.id, productId: req.params.productId }
+
+    saveproductsController.deleteSaveProduct(data_to_delete)
+        .then(() => res.send("success"))
+})
+
 
 module.exports = router;

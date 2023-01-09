@@ -30,11 +30,31 @@ viewEngine(app);
 
 connectDB();
 // Khởi tạo biến session
-app.use((req, res, next) => {
+app.use((req, res, next) =>
+{
     res.locals.email = req.session.user ? req.session.user.email : '';
     res.locals.isLoggedIn = req.session.user ? true : false;
-    next();
+
+    let getSaveProduct = new Promise((resolve, reject) =>
+    {
+        if (res.locals.isLoggedIn) {
+            let saveproductsController = require("./controllers/saveproductsController")
+
+            saveproductsController.getAllSaveProducts(req.session.user.id)
+                .then(data =>
+                {
+                    res.locals.saveProducts = data
+                })
+        }
+        else
+            res.locals.saveProducts = [];
+        resolve();
+    })
+    getSaveProduct.then(() => next())
+
+    
 })
+
 
 
 app.use("/", require('./route/indexRouter'))
@@ -42,6 +62,7 @@ app.use("/user", require("./route/userRouter"))
 app.use("/products", require('./route/productRouter'))
 app.use('/uploads/images', express.static(path.join(__dirname, '../uploads/images')))
 
-app.listen(port, () => {
+app.listen(port, () =>
+{
     console.log(`Server is running at port ${port}`)
 })
