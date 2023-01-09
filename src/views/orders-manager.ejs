@@ -15,16 +15,16 @@
     href="https://fonts.googleapis.com/css?family=Source+Sans+3:200,300,regular,500,600,700,800,900,200italic,300italic,italic,500italic,600italic,700italic,800italic,900italic"
     rel="stylesheet" />
     
-    <link rel="stylesheet" href="./public/styles/base.css">
-    <link rel="stylesheet" href="./public/styles/forms.css">
-    <link rel="stylesheet" href="./public/styles/cart.css">
+    <link rel="stylesheet" href="/assets/styles/base.css">
+    <link rel="stylesheet" href="/assets/styles/forms.css">
+    <link rel="stylesheet" href="/assets/styles/cart.css">
   </head>
   <body>
     <main>
-      <h1>Your Orders</h1>
+      <h1>Sản phẩm đang cho thuê</h1>
       <% for(let i = 0; i< orders.length; i++){ %> 
-      <div id="cart-items" href="/products/<%= orders[i].productId %>">
-        <article class="cart-item" alt="<%= orders[i].name%>" >
+      <div id="cart-items">
+        <a class="cart-item" alt="<%= orders[i].name%>" >
           <img src= "<%= orders[i].imagePath%>" >
             <div class = "cart-info">
               <div class="cart-item-info">
@@ -32,10 +32,10 @@
                 <p>Số lượng: <%= orders[i].Orders[0].quantity %> </p>
                 <p>Email: <%= orders[i].Orders[0].User.email %> </p>
               </div>
-              <p class="total">Thành tiền: 100.000 VND</p>
+              <p class="total">Thành tiền: <%= orders[i].Orders[0].totalPrice %> </p>
           </div>
           
-        </article>
+        </a>
       </div>
       <% } %> 
     </main>
