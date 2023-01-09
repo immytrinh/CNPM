@@ -5,8 +5,7 @@ let router = express.Router();
 
 
 
-router.get('/', (req, res, next) =>
-{
+router.get('/', (req, res, next) => {
     if ((req.query.category === null) || isNaN(req.query.category)) {
         req.query.category = 0;
     }
@@ -16,34 +15,29 @@ router.get('/', (req, res, next) =>
     let categoryController = require('../controllers/categoryControllers');
     categoryController
         .getAll()
-        .then(data =>
-        {
+        .then(data => {
             res.locals.categories = data;
             let productController = require("../controllers/productControllers")
             return productController.getAll(req.query);
         })
-        .then(data =>
-        {
+        .then(data => {
             res.locals.products = data;
             return res.render('category.ejs')
         })
         .catch(error => next(error));
 })
 
-router.get('/:productID', function (req, res, next)
-{
+router.get('/:productID', function (req, res, next) {
     let productController = require("../controllers/productControllers")
     productController
         .getProductById(req.params.productID)
-        .then(data =>
-        {
+        .then(data => {
             res.locals.product = data;
             return res.render('product-detail.ejs')
         })
 });
 
-router.post('/place-order', (req, res, next) =>
-{
+router.post('/place-order', (req, res, next) => {
     if (req.session.user == null)
         res.redirect('/user/login')
 
@@ -63,8 +57,7 @@ router.post('/place-order', (req, res, next) =>
     res.render('place-order.ejs', { orderInfo: order })
 })
 
-router.post('/place-order/success', (req, res, next) =>
-{
+router.post('/place-order/success', (req, res, next) => {
     if (req.session.user == null)
         res.redirect('/user/login')
     let orderInfo = {
@@ -82,7 +75,7 @@ router.post('/place-order/success', (req, res, next) =>
     let orderController = require("../controllers/orderControllers")
     orderController
         .createOrder(orderInfo)
-        .then(() => res.redirect('/products'))
+        .then(() => res.render("announceSuccessfully.ejs", { message: "Đặt hàng thành công!" }))
 })
 
 router.post('/save/:productId', (req, res) =>

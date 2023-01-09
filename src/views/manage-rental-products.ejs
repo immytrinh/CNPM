@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Thanh Toán</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css?family=Source+Sans+3:200,300,regular,500,600,700,800,900,200italic,300italic,italic,500italic,600italic,700italic,800italic,900italic"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="/assets/styles/base.css">
+    <link rel="stylesheet" href="/assets/styles/forms.css">
+    <link rel="stylesheet" href="/assets/styles/checkout.css">
+    <link rel="stylesheet" href="/assets/styles/cart.css">
+</head>
+
+<body>
+    <main>
+        <h1>Quản lý sản phẩm đang thuê</h1>
+
+        <ul id="cart-items">
+            <% for(let i=0; i< rentingProducts.length; i++){ %>
+                <li>
+                    <a class="cart-item" href="/products/<%= rentingProducts[i].dataValues.productId %>">
+                        <img src="<%= rentingProducts[i].dataValues.Product.imagePath %>"
+                            alt="<%= rentingProducts[i].dataValues.Product.name %>">
+                        <div class="cart-info">
+                            <div class="cart-item-info">
+                                <h2>
+                                    <%= rentingProducts[i].dataValues.Product.name%>
+                                </h2>
+                                <p>Số lượng: <%= rentingProducts[i].quantity %>
+                                </p>
+                            </div>
+                            <p class="total">Thành tiền: <%= rentingProducts[i].dataValues.totalPrice %> VND</p>
+                        </div>
+
+                        <!-- </article>
+                
+                    <button class="btn" id="trash">
+                        <i class="fa fa-trash"></i>
+                    </button>-->
+                    </a>
+                </li>
+                <% } %>
+        </ul>
+    </main>
+</body>
+
+</html>

@@ -202,7 +202,7 @@ router.post('/reset', (req, res, next) => {
 
 router.get('/add-product', (req, res, next) => {
 
-    if (req.session.user != null){
+    if (req.session.user != null) {
         let categoryController = require('../controllers/categoryControllers');
         categoryController
             .getAll()
@@ -211,7 +211,7 @@ router.get('/add-product', (req, res, next) => {
                 return res.render("new-product");
             });
     }
-    else{
+    else {
         return res.render("logIn.ejs");
     }
 });
@@ -226,7 +226,7 @@ var storage = multer.diskStorage({
         callBack(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname))
     }
 })
- 
+
 const path = require('path');
 var upload = multer({
     storage: storage
@@ -235,58 +235,72 @@ var upload = multer({
 router.post('/add-product', upload.single('image'), (req, res, next) => {
     let filepath = req.file.path;
     filepath = path.join("../../", filepath)
-    
+
     var path2 = filepath.replace(/\\/g, "/");
     console.log(path2);
     console.log(filepath)
     console.log(req.body.category)
     const product = {
-        name : req.body.title,
+        name: req.body.title,
         price: req.body.price,
         description: req.body.description,
         imagePath: path2,
         ownerId: req.session.user.id,
+        productId: Math.floor(Math.random() * 2147483647),
         categoryId: req.body.category,
         availability: req.body.quantity,
     };
     let categoryController = require('../controllers/categoryControllers');
-    if(userControllers.addProduct(product)){
+    if (userControllers.addProduct(product)) {
         categoryController
             .getAll()
             .then(data => {
                 res.locals.categories = data;
-                return res.render('new-product.ejs', {message: 'success'});
+                return res.render('new-product.ejs', { message: 'success' });
             })
     }
-    else{categoryController
-        .getAll()
-        .then(data => {
-            res.locals.categories = data;
-            return res.render('new-product.ejs', {message: 'error'});
-        })
+    else {
+        categoryController
+            .getAll()
+            .then(data => {
+                res.locals.categories = data;
+                return res.render('new-product.ejs', { message: 'error' });
+            })
     }
 });
 
-router.get('/orders-manager', (req,res,next) => {
-    
+router.get('/orders-manager', (req, res, next) => {
+
     let productController = require('../controllers/productControllers');
     let userControllers = require('../controllers/userControllers');
-    
-    // console.log(req.session.user);
-    // if(req.session.user == null){
-    //     return res.redirect('login');
-    // }
 
-    // let ownerId = req.session.user.id;
+    console.log(req.session.user);
+    if (req.session.user == null) {
+        return res.redirect('login');
+    }
+
+    let ownerId = req.session.user.id;
     // let orders = productController.getPlacedOrder(ownerId);
-    productController.getPlacedOrder(1)
+    productController.getPlacedOrder(ownerId)
         .then(data => {
             res.locals.orders = data;
-            // console.log(data);
+            console.log(data);
             return res.render('orders-manager');
         });
-
-
 });
+
+router.get("/manage-rental-products", (req, res, next) => {
+    let productController = require('../controllers/productControllers');
+    let userControllers = require('../controllers/userControllers');
+
+    let userId = req.session.user.id;
+    // console.log(userId)
+    productController.getRentingProducts(userId)
+        .then(data => {
+            // console.log("fuck")
+            console.log(data)
+            return res.render('manage-rental-products', { rentingProducts: data });
+        });
+})
 
 module.exports = router;
