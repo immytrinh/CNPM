@@ -269,14 +269,14 @@ router.get('/orders-manager', (req,res,next) => {
     let productController = require('../controllers/productControllers');
     let userControllers = require('../controllers/userControllers');
     
-    // console.log(req.session.user);
-    // if(req.session.user == null){
-    //     return res.redirect('login');
-    // }
+    console.log(req.session.user);
+    if(req.session.user == null){
+        return res.redirect('login');
+    }
 
-    // let ownerId = req.session.user.id;
+    let ownerId = req.session.user.id;
     // let orders = productController.getPlacedOrder(ownerId);
-    productController.getPlacedOrder(1)
+    productController.getPlacedOrder(ownerId)
         .then(data => {
             res.locals.orders = data;
             // console.log(data);
