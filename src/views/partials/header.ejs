@@ -100,6 +100,9 @@
                             <li class="header__navbar-user-item">
                                 <a href="/user/add-product">Đăng sản phẩm</a>
                             </li>
+                            <li class="header__navbar-user-item">
+                                <a href="/user/manage-rental-products">Quản lý sản phẩm đang thuê</a>
+                            </li>
                             <li class="header__navbar-user-item header__navbar-user-item--separate">
                                 <a href="/user/logout">Đăng xuất</a>
                             </li>
@@ -147,9 +150,10 @@
                 <span class="header__shopname">Rentee</span>
             </a>
 
-            <form action="/products?" method="GET" class="header__search"> 
+            <form action="/products?" method="GET" class="header__search">
                 <div class="header__search-input-wrap">
-                    <input type="text" name="search" class="header__search-input" placeholder="Nhập để tìm kiếm sản phẩm">
+                    <input type="text" name="search" class="header__search-input"
+                        placeholder="Nhập để tìm kiếm sản phẩm">
 
                     <!-- Search History -->
                     <!-- <div class="header__search-history">
@@ -171,7 +175,7 @@
                     <span class="header__search-select-label">Trong shop</span>
                     <i class="header__search-select-icon fa-solid fa-angle-down"></i> -->
 
-                    <!-- <ul class="header__search-option">
+                <!-- <ul class="header__search-option">
                         <li class="header__search-option-item header__search-option-item--active">
                             <span>Trong shop</span>
                             <i class="fa-solid fa-check"></i>
@@ -182,11 +186,11 @@
                         </li>
                     </ul> -->
                 <!-- </div> -->
-                
-                    <button class="header__search-btn" type="submit" >
-                        <i class="header__search-btn-icon fa-solid fa-magnifying-glass"></i>
-                    </button>
-        </form>
+
+                <button class="header__search-btn" type="submit">
+                    <i class="header__search-btn-icon fa-solid fa-magnifying-glass"></i>
+                </button>
+            </form>
 
             <!-- Cart Layout -->
             <div class="header__cart">

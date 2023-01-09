@@ -27,19 +27,20 @@
 
 .cart-item {
     flex-direction: row;
-    justify-content:flex-start;
+    justify-content: flex-start;
 }
+
 .cart-item-info {
     font-size: 1rem;
     margin-left: var(--space-8);
-    justify-content:space-between;
+    justify-content: space-between;
     display: inline-block;
 }
 
 .cart-item a {
     align-items: center;
     display: flex;
-    justify-content:space-between;
+    justify-content: space-between;
 }
 
 #trash {
@@ -65,9 +66,9 @@
 }
 
 #trash:hover,
-#trash:active{
-  background-color: var(--blue-pastel);
-  border-color: var(--blue-pastel);
+#trash:active {
+    background-color: var(--blue-pastel);
+    border-color: var(--blue-pastel);
 }
 
 @media (min-width: 48rem) {
@@ -85,9 +86,15 @@
     }
 }
 
-.cart-info{
+.cart-info {
     display: flex;
     flex-direction: column;
     justify-content: space-around;
     height: 200px;
+}
+
+h1 {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 25px;
+    background-color: transparent;
 }

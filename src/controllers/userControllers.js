@@ -95,16 +95,17 @@ controller.updatePassword = (user) => {
         })
 }
 
-controller.addProduct = async(product) => {
+controller.addProduct = async (product) => {
     const p = await Product.create(product);
-    if(p instanceof Product){
+    if (p instanceof Product) {
         return true;
     }
     return false;
 }
 
-controller.getEmailById = async(userId) => {
+controller.getEmailById = async (userId) => {
     return User.findOne({
-            where: {id: userId}});
+        where: { id: userId }
+    });
 }
 module.exports = controller;

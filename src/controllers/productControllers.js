@@ -9,10 +9,8 @@ const Sequelize = require('sequelize');
 const Op = Sequelize.Op;
 
 
-controller.getAll = (query) =>
-{
-    return new Promise((resolve, reject) =>
-    {
+controller.getAll = (query) => {
+    return new Promise((resolve, reject) => {
         let options = {
             include: [{ model: Category }],
             attributes: ['productId', 'name', 'categoryId', 'price', 'imagePath', 'description'],
@@ -34,10 +32,8 @@ controller.getAll = (query) =>
     })
 }
 
-controller.getProductById = (id) =>
-{
-    return new Promise((resolve, reject) =>
-    {
+controller.getProductById = (id) => {
+    return new Promise((resolve, reject) => {
         Product
             .findAll({
                 attributes: ['productId', 'name', 'price', 'imagePath', 'description'],
@@ -48,7 +44,7 @@ controller.getProductById = (id) =>
     })
 }
 
-controller.getPlacedOrder = (id) =>{
+controller.getPlacedOrder = (id) => {
     return new Promise((resolve, reject) => {
         let options = {
             where: {
@@ -65,11 +61,30 @@ controller.getPlacedOrder = (id) =>{
         }
         Product
             .findAll(options)
-            .then(data => {
-                resolve(data)
-            })
+            .then(data => resolve(data)
+            )
             .catch(error => reject(new Error(error)))
     });
 }
-
+controller.getRentingProducts = (userId) => {
+    return new Promise((resolve, reject) => {
+        let options = {
+            where: {
+                userId: userId
+            },
+            include: [{
+                model: Product,
+                required: true,
+            }],
+        }
+        Order
+            .findAll(options)
+            .then(data => {
+                // console.log("ahhihihi")
+                // console.log(data)
+                resolve(data)
+            })
+            .catch(error => reject(new Error(error)))
+    })
+}
 module.exports = controller;
