@@ -1,11 +1,25 @@
 import express from "express";
 import { rmSync } from "fs";
-
 let router = express.Router();
 
+function getSaveProduct(req,res)
+{
+    return new Promise((resolve, reject) =>
+    {
+        if (res.locals.isLoggedIn) {
+            let saveproductsController = require("../controllers/saveproductsController")
+
+            saveproductsController.getAllSaveProducts(req.session.user.id)
+                .then(data => { resolve(data) })
+        }
+        else
+            resolve([]);
+    })
+}
 
 
-router.get('/', (req, res, next) => {
+router.get('/', (req, res, next) =>
+{
     if ((req.query.category === null) || isNaN(req.query.category)) {
         req.query.category = 0;
     }
@@ -15,29 +29,35 @@ router.get('/', (req, res, next) => {
     let categoryController = require('../controllers/categoryControllers');
     categoryController
         .getAll()
-        .then(data => {
+        .then(data =>
+        {
             res.locals.categories = data;
             let productController = require("../controllers/productControllers")
             return productController.getAll(req.query);
         })
-        .then(data => {
+        .then(data =>
+        {
             res.locals.products = data;
-            return res.render('category.ejs')
+            getSaveProduct(req,res).then(data => res.render('category.ejs', { saveProducts: data }))
+
         })
         .catch(error => next(error));
 })
 
-router.get('/:productID', function (req, res, next) {
+router.get('/:productID', function (req, res, next)
+{
     let productController = require("../controllers/productControllers")
     productController
         .getProductById(req.params.productID)
-        .then(data => {
+        .then(data =>
+        {
             res.locals.product = data;
-            return res.render('product-detail.ejs')
+            getSaveProduct(req,res).then(data => res.render('product-detail.ejs', { saveProducts: data }))
         })
 });
 
-router.post('/place-order', (req, res, next) => {
+router.post('/place-order', (req, res, next) =>
+{
     if (req.session.user == null)
         res.redirect('/user/login')
 
@@ -53,11 +73,15 @@ router.post('/place-order', (req, res, next) => {
         quantity: req.body["quantity"]
     }
 
-
-    res.render('place-order.ejs', { orderInfo: order })
+    getSaveProduct(req, res).then(data =>
+    {
+        res.locals.saveProducts = data;
+        res.render('place-order.ejs', { orderInfo: order })
+    });
 })
 
-router.post('/place-order/success', (req, res, next) => {
+router.post('/place-order/success', (req, res, next) =>
+{
     if (req.session.user == null)
         res.redirect('/user/login')
     let orderInfo = {
@@ -75,10 +99,15 @@ router.post('/place-order/success', (req, res, next) => {
     let orderController = require("../controllers/orderControllers")
     orderController
         .createOrder(orderInfo)
-        .then(() => res.render("announceSuccessfully.ejs", { message: "Đặt hàng thành công!" }))
+        .then(() =>
+            getSaveProduct(req, res).then(data =>
+            {
+                res.locals.saveProducts = data;
+                res.render("announceSuccessfully.ejs", { message: "Đặt hàng thành công!" })
+            }))
 })
 
-router.post('/save/:productId', (req, res) =>
+router.post('/save/:productId', (x, res) =>
 {
     if (req.session.user == null)
         return
@@ -94,6 +123,7 @@ router.post('/save/:productId', (req, res) =>
             if (data != null)
                 return
             saveproductsController.createSaveProduct(product_to_save)
+                .then(() => res.send("success"))
         })
 
 })
@@ -105,6 +135,7 @@ router.post('/deleteSave/:productId', (req, res) =>
 
     saveproductsController.deleteSaveProduct(data_to_delete)
         .then(() => res.send("success"))
+        .catch(() => res.send("error"))
 })
 
 

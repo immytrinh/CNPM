@@ -200,7 +200,7 @@
             <div class="header__cart">
                 <div class="header__cart-wrap">
                     <i class="header__cart-icon fa-solid fa-cart-shopping"></i>
-                    <span class="header__cart-notice">
+                    <span class="header__cart-notice" id="save_product_count">
                         <%= saveProducts.length %>
                     </span>
 
@@ -214,18 +214,22 @@
 
                             <!-- Cart item -->
                             <% for (let saveProduct of saveProducts) { %>
-                                <li class="header__cart-item">
-                                    <a href="/products/<%= saveProduct.dataValues.Product.productId %>"><img
-                                            src="<%= saveProduct.dataValues.Product.imagePath %>" alt=""
-                                            class="header__cart-img"></a>
+                                <li class="header__cart-item"
+                                    id="saveProduct_<%= saveProduct.dataValues.Product.productId %>">
+                                    <a href="/products/<%= saveProduct.dataValues.Product.productId %>">
+                                        <img src="<%= saveProduct.dataValues.Product.imagePath %>" alt=""
+                                            class="header__cart-img">
+                                    </a>
                                     <div class="header__cart-item-info">
                                         <div class="header__cart-item-head">
-                                            <h5 class="header__cart-item-name">
-                                                <%= saveProduct.dataValues.Product.name %>
-                                            </h5>
+                                            <a href="/products/<%= saveProduct.dataValues.Product.productId %>">
+                                                <h5 class="header__cart-item-name">
+                                                    <%= saveProduct.dataValues.Product.name %>
+                                                </h5>
+                                            </a>
                                             <div class="header__cart-item-price-wrap">
                                                 <span class="header__cart-item-price">
-                                                    <%= saveProduct.dataValues.Product.price %>
+                                                    <%= saveProduct.dataValues.Product.price %> VND
                                                 </span>
                                             </div>
                                         </div>
@@ -237,12 +241,15 @@
                                 </li>
                                 <% } %>
 
-                                <!-- script for delete button -->
-                                <script>
-                                    function deleteItem(productId) {
-                                        console.log(fetch('/products/deleteSave/' + productId, {method:'POST'}))
-                                    }
-                                </script>
+                                    <!-- script for delete button -->
+                                    <script>
+                                        function deleteItem(productId) {
+                                            fetch('/products/deleteSave/' + productId, { method: 'POST' })
+                                                .then(() => {
+                                                    document.getElementById("saveProduct_" + productId).remove();
+                                                })
+                                        }
+                                    </script>
                         </ul>
 
                         <!-- <a href="" class="header__cart-view-cart btn btn--primary">Xem giỏ hàng</a> -->

@@ -34,24 +34,7 @@ app.use((req, res, next) =>
 {
     res.locals.email = req.session.user ? req.session.user.email : '';
     res.locals.isLoggedIn = req.session.user ? true : false;
-
-    let getSaveProduct = new Promise((resolve, reject) =>
-    {
-        if (res.locals.isLoggedIn) {
-            let saveproductsController = require("./controllers/saveproductsController")
-
-            saveproductsController.getAllSaveProducts(req.session.user.id)
-                .then(data =>
-                {
-                    res.locals.saveProducts = data
-                })
-        }
-        else
-            res.locals.saveProducts = [];
-        resolve();
-    })
-    getSaveProduct.then(() => next())
-
+    next();
     
 })
 

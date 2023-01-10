@@ -88,6 +88,7 @@
         },
       }
       fetch('/products/save/<%= product.productId %>', options)
+        .then(() => { setTimeout(window.location.reload(), 500) })
     })
   </script>
 </body>

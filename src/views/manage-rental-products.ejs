@@ -20,7 +20,7 @@
 
 <body>
     <main>
-        <h1>Quản lý sản phẩm đang thuê</h1>
+        <h1>Quản lý sản phẩm đang thuê <%= rentingProducts.length %></h1>
 
         <ul id="cart-items">
             <% for(let i=0; i< rentingProducts.length; i++){ %>
@@ -29,8 +29,8 @@
                         <img src="<%= rentingProducts[i].dataValues.Product.imagePath %>"
                             alt="<%= rentingProducts[i].dataValues.Product.name %>">
                         <div class="cart-info">
-                            <div class="cart-item-info">
-                                <h2>
+                            <div class="cart-item-info" style="font-size: 20px;">
+                                <h2 style="font-size: 20px; line-height: 25px;" >
                                     <%= rentingProducts[i].dataValues.Product.name%>
                                 </h2>
                                 <p>Số lượng: <%= rentingProducts[i].quantity %>
