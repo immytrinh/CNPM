@@ -107,7 +107,7 @@ router.post('/place-order/success', (req, res, next) =>
             }))
 })
 
-router.post('/save/:productId', (x, res) =>
+router.post('/save/:productId', (req, res) =>
 {
     if (req.session.user == null)
         return

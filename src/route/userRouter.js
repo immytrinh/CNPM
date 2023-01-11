@@ -353,7 +353,6 @@ router.get('/orders-manager', (req, res, next) =>
         .then(data =>
         {
             res.locals.orders = data;
-            console.log(data);
             return getSaveProduct(req, res).then(data =>
             {
                 res.locals.saveProducts = data;
